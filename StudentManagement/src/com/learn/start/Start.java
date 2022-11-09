@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.learn.start.student.Student;
+import com.learn.start.student.StudentDAO;
 
 public class Start {
 	
@@ -29,6 +30,14 @@ public class Start {
 				String city = br.readLine();
 				
 				Student st = new Student(name,phone,city);
+				boolean answer = StudentDAO.addStudent(st);
+				
+				if(answer) {
+					System.out.println("Student added successfully");
+				} else {
+					System.out.println("some issue");
+				}
+				
 				
 				System.out.println(st);
 				

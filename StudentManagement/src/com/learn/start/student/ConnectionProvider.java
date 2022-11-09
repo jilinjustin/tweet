@@ -5,23 +5,25 @@ import java.sql.DriverManager;
 
 public class ConnectionProvider {
 	
-	Connection con;
+	static Connection con;
 	
-	public void createC() {
+	public static Connection createC() {
 		try {
 			//to load driver
-			Class.forName("com.sql.jdbc.driver");
+//			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//create connection
-			String user = "";
-			String password = "";
-			String url = "http://localhost:3306/studentmanagement";
+			String user = "root";
+			String password = "pass@word1";
+			String url = "jdbc:mysql://localhost:3306/studentmanagement";
 			
 			con = DriverManager.getConnection(url, user, password);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return con;
 	}
 
 }
