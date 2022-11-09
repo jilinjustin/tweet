@@ -11,6 +11,8 @@ public class LinkedListDemo {
 		fruits.add("Apple");
 		fruits.add("Orange");
 		
+		fruits.removeFirst();
+		
 		Iterator<String> itr = fruits.iterator();
 		
 		while(itr.hasNext()) {
