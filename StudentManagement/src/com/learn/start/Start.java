@@ -36,14 +36,31 @@ public class Start {
 					System.out.println("Student added successfully");
 				} else {
 					System.out.println("some issue");
-				}
-				
+				}			
 				
 				System.out.println(st);
 				
 			} else if(choice == 2) {
+				System.out.println("Enter student id to delete");
+				Integer id = Integer.parseInt(br.readLine());
+				
+				boolean answer = StudentDAO.deleteStudent(id);
+				
+				if(answer) {
+					System.out.println("Student deleted successfully");
+				} else {
+					System.out.println("some issue while deleting");
+				}		
 				
 			} else if(choice == 3 ) {
+								
+				boolean answer = StudentDAO.getAllStudent();
+				
+				if(answer) {
+					System.out.println("Student displayed successfully");
+				} else {
+					System.out.println("some issue while while getting data");
+				}
 				
 			} else if(choice == 4) {
 				
