@@ -15,7 +15,7 @@ public class ConnectionProvider {
 			// create connection
 			String user = "root";
 			String password = "pass@word1";
-			String url = "jdbc:mysql://localhost:3306/studentmanagement";
+			String url = "jdbc:mysql://localhost:3306/tweet";
 
 			con = DriverManager.getConnection(url, user, password);
 
