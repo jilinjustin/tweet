@@ -12,7 +12,7 @@ public class TreeSetDemo {
 		members.add("pepper");
 		members.add("jelly");
 		
-		Iterator<String> itr = members.descendingIterator();
+		Iterator<String> itr = members.iterator();
 		
 		while(itr.hasNext()) {
 			System.out.println(itr.next());
