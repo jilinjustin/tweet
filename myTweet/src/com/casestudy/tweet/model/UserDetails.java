@@ -7,6 +7,12 @@ public class UserDetails {
 	private String password;
 	private String status;
 
+	public UserDetails(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
 	public UserDetails(String firstName, String email, String password) {
 		super();
 		this.firstName = firstName;
