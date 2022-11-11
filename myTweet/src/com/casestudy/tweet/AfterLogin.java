@@ -22,32 +22,36 @@ public class AfterLogin {
 				System.out.println("4. View all Users");
 				System.out.println("5. Reset Password");
 				System.out.println("6. Logout");
-				int choice = Integer.parseInt(br.readLine());
+				String choice = br.readLine();
+				if (!choice.equals(null) && !choice.equals("")) {
+					switch (choice) {
+					case "1":
+						postTweet(ud);
+						break;
+					case "2":
+						viewMyTweets(ud);
+						break;
+					case "3":
+						viewAllTweets();
+						break;
+					case "4":
+						viewAllUsers();
+						break;
+					case "5":
+						resetPassword(ud);
+						break;
+					case "6":
+						System.out.println("Logging out");
+						TweetDAO.updateStatus(ud.getEmail(), "Logged Out");
+						flag = false;
+						break;
+					default:
+						System.out.println("Enter a valid option from Menu");
+						break;
+					}
 
-				switch (choice) {
-				case 1:
-					postTweet(ud);
-					break;
-				case 2:
-					viewMyTweets(ud);
-					break;
-				case 3:
-					viewAllTweets();
-					break;
-				case 4:
-					viewAllUsers();
-					break;
-				case 5:
-					resetPassword(ud);
-					break;
-				case 6:
-					System.out.println("Logging out");
-					TweetDAO.updateStatus(ud.getEmail(), "Logged Out");
-					flag = false;
-					break;
-				default:
-					System.out.println("Wrong Option");
-					break;
+				} else {
+					System.out.println("Enter a valid option");
 				}
 
 			}
@@ -64,18 +68,23 @@ public class AfterLogin {
 		try {
 			System.out.println("Enter Old Password: ");
 			String oldPassword = br.readLine();
-
-			String pwd = TweetDAO.getUserPassword(ud.getEmail());
+			String pwd = null;
+			if (!oldPassword.equals(null) && !oldPassword.equals("")) {
+				pwd = TweetDAO.getUserPassword(ud.getEmail());
+			}
 
 			if (pwd != null && pwd.equalsIgnoreCase(oldPassword)) {
 				System.out.println("Enter New Password: ");
 				String newPassword = br.readLine();
-				boolean result1 = TweetDAO.setNewPwd(ud.getEmail(), newPassword);
+				boolean result1 = false;
+				if (!newPassword.equals(null) && !newPassword.equals("")) {
+					result1 = TweetDAO.setNewPwd(ud.getEmail(), newPassword);
+				}
 
 				if (result1) {
 					System.out.println("New Password Updated");
 				} else {
-					System.out.println("Error Occured while updating new Password");
+					System.out.println("Enter Valid Password to update new Password");
 				}
 			} else {
 				System.out.println("Incorrect Password");
@@ -152,14 +161,16 @@ public class AfterLogin {
 			System.out.println("Enter your Tweet");
 
 			String content = br.readLine();
-
-			TweetDetails td = new TweetDetails(ud.getEmail(), content);
-			boolean result = TweetDAO.postTweet(td);
+			boolean result = false;
+			if (!content.equals(null) && !content.equals("")) {
+				TweetDetails td = new TweetDetails(ud.getEmail(), content);
+				result = TweetDAO.postTweet(td);
+			}
 
 			if (result) {
 				System.out.println("Tweet posted successfully");
 			} else {
-				System.out.println("Error Occured in post creation");
+				System.out.println("Enter content to create a new post.");
 			}
 
 		} catch (Exception e) {

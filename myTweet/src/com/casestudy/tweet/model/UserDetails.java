@@ -7,6 +7,10 @@ public class UserDetails {
 	private String password;
 	private String status;
 
+	public UserDetails() {
+		super();
+	}
+
 	public UserDetails(String email, String password) {
 		super();
 		this.email = email;
@@ -18,6 +22,14 @@ public class UserDetails {
 		this.firstName = firstName;
 		this.email = email;
 		this.password = password;
+	}	
+
+	public UserDetails(String firstName, String email, String password, String status) {
+		super();
+		this.firstName = firstName;
+		this.email = email;
+		this.password = password;
+		this.status = status;
 	}
 
 	public String getFirstName() {

@@ -10,37 +10,39 @@ public class TweetMain {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println("Welcome To ");
+			System.out.println("Welcome To Tweet");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			boolean flag = true;
 
 			while (flag) {
-
+				System.out.println("--- MENU ---");
 				System.out.println("1. Register");
 				System.out.println("2. Login");
 				System.out.println("3. Forgot Password");
 				System.out.println("4. exit");
-				int choice = Integer.parseInt(br.readLine());
-
-				switch (choice) {
-				case 1:
-					userRegistration();
-					break;
-				case 2:
-					userLogin();
-					break;
-				case 3:
-					forgotPassword();
-					break;
-				case 4:
-					System.out.println("Exiting");
-					flag = false;
-					break;
-				default:
-					System.out.println("Wrong Option");
-					break;
+				String choice = br.readLine();
+				if (!choice.equals(null) && !choice.equals("")) {
+					switch (choice) {
+					case "1":
+						userRegistration();
+						break;
+					case "2":
+						userLogin();
+						break;
+					case "3":
+						forgotPassword();
+						break;
+					case "4":
+						System.out.println("Exiting");
+						flag = false;
+						break;
+					default:
+						System.out.println("Enter a Valid Option from the Menu");
+						break;
+					}
+				} else {
+					System.out.println("Enter a Valid Option");
 				}
-
 			}
 
 		} catch (Exception e) {
@@ -53,22 +55,26 @@ public class TweetMain {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			System.out.println("Enter Email to set New Password");
-
 			System.out.println("Email: ");
 			String email = br.readLine();
-
-			boolean result = TweetDAO.verifyUser(email);
+			boolean result = false;
+			if (!email.equals(null) && !email.equals("")) {
+				result = TweetDAO.verifyUser(email);
+			}
 
 			if (result) {
 				System.out.println("Email verified");
 				System.out.println("Enter New Password: ");
 				String password = br.readLine();
-				boolean result1 = TweetDAO.setNewPwd(email, password);
+				boolean result1 = false;
+				if (!password.equals(null) && !password.equals("")) {
+					result1 = TweetDAO.setNewPwd(email, password);
+				}
 
 				if (result1) {
 					System.out.println("New Password Updated");
 				} else {
-					System.out.println("Error Occured while updating new Password");
+					System.out.println("Enter Valid Password");
 				}
 
 			} else {
@@ -94,11 +100,14 @@ public class TweetMain {
 			String password = br.readLine();
 
 			UserDetails ud = new UserDetails(email, password);
-			String pwd = TweetDAO.getUserPassword(email);
+			String pwd = null;
+			if (!email.equals(null) && !email.equals("") && !password.equals(null) && !password.equals("")) {
+				pwd = TweetDAO.getUserPassword(email);
+			}
 
 			if (pwd != null && pwd.equalsIgnoreCase(password)) {
 				System.out.println("User Login successful");
-				TweetDAO.updateStatus(email,"Logged In");
+				TweetDAO.updateStatus(email, "Logged In");
 				AfterLogin.displayMenu(ud);
 			} else {
 				System.out.println("Incorrect Username/Password");
@@ -125,13 +134,19 @@ public class TweetMain {
 			System.out.println("Password: ");
 			String password = br.readLine();
 
-			UserDetails ud = new UserDetails(firstName, email, password);
-			boolean result = TweetDAO.registerUser(ud);
+			String status = "Logged Out";
+
+			UserDetails ud = new UserDetails(firstName, email, password, status);
+			boolean result = false;
+			if ((!firstName.equals(null) && !firstName.equals("")) && (!email.equals(null) && !email.equals(""))
+					&& (!password.equals(null) && !password.equals(""))) {
+				result = TweetDAO.registerUser(ud);
+			}
 
 			if (result) {
 				System.out.println("User Registration successful");
 			} else {
-				System.out.println("Error Occured during user registration");
+				System.out.println("Enter Valid Details for User Registration");
 			}
 
 		} catch (Exception e) {

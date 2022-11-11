@@ -14,7 +14,7 @@ public class TweetDAO {
 		boolean result = false;
 		try {
 			Connection con = ConnectionProvider.createC();
-			String Query1 = "INSERT into userdetails(username,email,password) " + " VALUES (?,?,?)";
+			String Query1 = "INSERT into userdetails(username,email,password,status) " + " VALUES (?,?,?,?)";
 
 			PreparedStatement pstmt = con.prepareStatement(Query1);
 
@@ -22,8 +22,11 @@ public class TweetDAO {
 			pstmt.setString(1, ud.getFirstName());
 			pstmt.setString(2, ud.getEmail());
 			pstmt.setString(3, ud.getPassword());
+			pstmt.setString(4, ud.getStatus());
+			
+			pstmt.execute();
 
-			pstmt.executeUpdate();
+//			pstmt.executeUpdate();
 			result = true;
 
 		} catch (Exception e) {
